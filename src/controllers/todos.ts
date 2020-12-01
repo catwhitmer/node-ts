@@ -17,7 +17,7 @@ export const getTodos: RequestHandler = (req, res, next) => {
   res.json({ todos: TODOS });
 };
 
-export const updateTodos: RequestHandler = (req, res, next) => {
+export const updateTodo: RequestHandler = (req, res, next) => {
   const todoId = req.params.id;
 
   const updatedText = (req.body as { text: string }).text;
@@ -33,8 +33,16 @@ export const updateTodos: RequestHandler = (req, res, next) => {
   res.json({ message: "Updated", updatedTodo: TODOS[todoIndex] });
 };
 
-export const deleteTodos: RequestHandler<{ id: string }> = (req, res, next) => {
+export const deleteTodo: RequestHandler<{ id: string }> = (req, res, next) => {
   const todoId = req.params.id;
 
-  const updatedText = (req.body as { text: string }).text;
+  const todoIndex = TODOS.findIndex((todo) => todo.id === todoId);
+
+  if (todoIndex < 0) {
+    throw new Error("Could not find Todo!");
+  }
+
+  TODOS.splice(todoIndex, 1);
+
+  res.json({ message: "Todo deleted!" });
 };
