@@ -1,4 +1,4 @@
-import { createTodo, getTodos } from "../controllers/todos";
+import { createTodo, getTodos, updateTodos } from "../controllers/todos";
 
 import { Router } from "express";
 
@@ -8,7 +8,7 @@ router.post("/", createTodo);
 
 router.get("/", getTodos);
 
-router.patch("/:id");
+router.patch("/:id", updateTodos);
 
 router.delete("/:id");
 
